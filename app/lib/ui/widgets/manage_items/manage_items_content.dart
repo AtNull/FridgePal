@@ -98,32 +98,35 @@ class ManageItemsContent extends HookConsumerWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: nameTextController,
-                      decoration: const InputDecoration(
-                        hintText: 'Name'
+              child: AbsorbPointer(
+                absorbing: saving.value,
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: nameTextController,
+                        decoration: const InputDecoration(
+                          hintText: 'Name'
+                        ),
                       ),
-                    ),
-                    TextFormField(
-                      controller: purchaseDateTextController,
-                      decoration: const InputDecoration(
-                        hintText: 'Purchase date'
+                      TextFormField(
+                        controller: purchaseDateTextController,
+                        decoration: const InputDecoration(
+                          hintText: 'Purchase date'
+                        ),
+                        onTap: () => selectDate(purchaseDateTextController, purchaseDate)
                       ),
-                      onTap: () => selectDate(purchaseDateTextController, purchaseDate)
-                    ),
-                    TextFormField(
-                      controller: expiryTextController,
-                      decoration: const InputDecoration(
-                        hintText: 'Expiry date'
+                      TextFormField(
+                        controller: expiryTextController,
+                        decoration: const InputDecoration(
+                          hintText: 'Expiry date'
+                        ),
+                        onTap: () => selectDate(expiryTextController, expiryDate)
                       ),
-                      onTap: () => selectDate(expiryTextController, expiryDate)
-                    ),
-                    QuantityInput(controller: quantityTextController),
-                  ]
+                      QuantityInput(controller: quantityTextController),
+                    ]
+                  )
                 )
               )
             )
@@ -132,7 +135,7 @@ class ManageItemsContent extends HookConsumerWidget {
             width: double.infinity,
             child: FilledButton(
               onPressed: () => saveItem(),
-              child: Text('Save')
+              child: Text(saving.value ? 'Saving' : 'Save')
             )
           )
         ]
