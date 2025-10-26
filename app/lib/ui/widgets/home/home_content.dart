@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fridge_pal/providers/home_screen_providers.dart';
+import 'package:fridge_pal/providers/items_providers.dart';
 import 'package:fridge_pal/ui/screens/manage_item.dart';
 import 'package:fridge_pal/ui/widgets/home/item_cell.dart';
 import 'package:fridge_pal/ui/widgets/home/order_by_bottom_sheet.dart';
@@ -21,6 +22,10 @@ class HomeContentWidget extends HookConsumerWidget {
         context,
         MaterialPageRoute(builder: (context) => ManageItemScreen(itemToEdit: item)),
       )
+    );
+
+    final deleteItem = useCallback((item) =>
+      ref.read(itemsNotifierProvider.notifier).delete(item.id)
     );
 
     useEffect(() {
@@ -80,6 +85,7 @@ class HomeContentWidget extends HookConsumerWidget {
                 key: ValueKey(items[index].id),
                 item: items[index],
                 onSelectItem: (item) => editItem(item),
+                onDismissItem: (item) => deleteItem(item),
               )
             )
           )

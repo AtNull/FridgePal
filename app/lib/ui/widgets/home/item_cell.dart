@@ -6,44 +6,49 @@ import 'package:transparent_image/transparent_image.dart';
 class ItemCell extends StatelessWidget {
   final Item item;
   final Function(Item) onSelectItem;
+  final Function(Item) onDismissItem;
 
-  const ItemCell({super.key, required this.item, required this.onSelectItem});
+  const ItemCell({super.key, required this.item, required this.onSelectItem, required this.onDismissItem});
   
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onSelectItem(item),
-      child: Row(
-        children: [
-          CachedNetworkImage(
-            width: 48,
-            height: 48,
-            imageUrl: item.imageUrl,
-            errorWidget: (_, __, ___) => Image.memory(kTransparentImage),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(overflow: TextOverflow.ellipsis, item.name),
-                    Expanded(
-                      child: Text('${item.quantity}')
-                    )
-                  ]
-                ),
-                Row(
-                  children: [
-                    Text(overflow: TextOverflow.ellipsis, 'Bought ${item.purchaseDate}'),
-                    Expanded(
-                      child: Text(overflow: TextOverflow.ellipsis, 'Expires ${item.expiryDate}')
-                    )
-                  ]
-                )
-              ]
+    return Dismissible(
+      key: ValueKey('dismissable_${item.id}'),
+      onDismissed: (direction) => onDismissItem(item),
+      child: GestureDetector(
+        onTap: () => onSelectItem(item),
+        child: Row(
+          children: [
+            CachedNetworkImage(
+              width: 48,
+              height: 48,
+              imageUrl: item.imageUrl,
+              errorWidget: (_, __, ___) => Image.memory(kTransparentImage),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(overflow: TextOverflow.ellipsis, item.name),
+                      Expanded(
+                        child: Text('${item.quantity}')
+                      )
+                    ]
+                  ),
+                  Row(
+                    children: [
+                      Text(overflow: TextOverflow.ellipsis, 'Bought ${item.purchaseDate}'),
+                      Expanded(
+                        child: Text(overflow: TextOverflow.ellipsis, 'Expires ${item.expiryDate}')
+                      )
+                    ]
+                  )
+                ]
+              )
             )
-          )
-        ],
+          ],
+        )
       )
     );
   }
