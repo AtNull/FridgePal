@@ -13,14 +13,18 @@ enum Filter {
 }
 
 enum Order {
-  dateOfPurchaseAsc,
-  dateOfPurchaseDesc,
-  expiryDateAsc,
-  expiryDateDesc,
-  quantityAsc,
-  quantityDesc,
-  nameAsc,
-  nameDesc
+  dateOfPurchaseAsc('Date of Purchase ↑ (Oldest first)'),
+  dateOfPurchaseDesc('Date of Purchase ↓ (Newest first)'),
+  expiryDateAsc('Expiry Date ↑ (Soonest first)'),
+  expiryDateDesc('Expiry Date ↓ (Latest first)'),
+  quantityAsc('Quantity ↑ (Lowest first)'),
+  quantityDesc('Quantity ↓ (Highest first)'),
+  nameAsc('Name A-Z'),
+  nameDesc('Name Z-A');
+
+  final String label;
+
+  const Order(this.label);
 }
 
 class FilterNotifier extends Notifier<Filter> {

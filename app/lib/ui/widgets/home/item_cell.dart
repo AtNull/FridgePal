@@ -31,8 +31,9 @@ class ItemCell extends StatelessWidget {
                 Row(
                   children: [
                     Text(overflow: TextOverflow.ellipsis, 'Bought ${item.purchaseDate}'),
-                    Expanded(child:
-                    Text(overflow: TextOverflow.ellipsis, 'Expires ${item.expiryDate}'))
+                    Expanded(
+                      child: Text(overflow: TextOverflow.ellipsis, 'Expires ${item.expiryDate}')
+                    )
                   ]
                 )
               ]
