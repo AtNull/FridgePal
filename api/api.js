@@ -43,6 +43,21 @@ app.post('/api/item', (req, res) => {
   res.json(newItem);
 });
 
+app.patch('/api/items/:id', (req, res) => {
+  const id = req.params.id;
+  const updates = req.body;
+
+  const item = mockData.find(i => i.id === id);
+
+  Object.keys(updates).forEach(key => {
+    if (item.hasOwnProperty(key)) {
+      item[key] = updates[key];
+    }
+  });
+
+  res.json(item);
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Listening at http://0.0.0.0:${port}`);
 });
