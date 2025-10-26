@@ -42,4 +42,12 @@ class ItemRespository {
 
     return Item.fromJson(response.data);
   }
+
+  Future<Item> deleteItem(String id) async {
+    final response = await apiService.delete(
+      'items/$id',
+    );
+
+    return Item.fromJson(response.data);
+  }
 }

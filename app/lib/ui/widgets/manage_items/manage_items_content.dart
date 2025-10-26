@@ -92,6 +92,48 @@ class ManageItemsContent extends HookConsumerWidget {
       }
     }
 
+    Future<void> deleteItem() async {
+      final id = itemToEdit?.id;
+
+      if (id != null) {
+        try {
+          saving.value = true;
+
+          await ref.read(itemsNotifierProvider.notifier).delete(
+            itemToEdit!.id
+          );
+
+          if (context.mounted) {
+            Navigator.pop(context);
+          }
+        } catch (error) {
+          if (context.mounted) {
+            saving.value = true;
+
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                content: const Text('Oops! Something went wrong while connecting. Please try again.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      deleteItem();
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ), 
+            );
+          }
+        }
+      }
+    }
+
     Future<void> selectDate(TextEditingController textController, ValueNotifier<DateTime?> dateNotifier) async {
       final DateTime? date = await showDatePicker(
         context: context,

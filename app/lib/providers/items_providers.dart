@@ -44,6 +44,18 @@ class AsyncItemsNotifier extends AsyncNotifier<List<Item>> {
 
     state = AsyncValue.data(updatedItems);
   }
+
+   Future<void> delete(String id) async {
+    final repo = ref.read(itemRepositoryProvider);
+
+    repo.deleteItem(id); // no need to wait for deletion
+
+    final currentItems = state.value ?? [];
+
+    final updatedItems = currentItems.where((item) => item.id != id).toList();
+
+    state = AsyncValue.data(updatedItems);
+  }
 }
 
 final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(() => AsyncItemsNotifier());
