@@ -7,7 +7,9 @@ class ApiService {
 
   ApiService._() {
     _dio = Dio(
-      BaseOptions(baseUrl: 'http://192.168.0.23:3000/api/')
+      BaseOptions(
+        baseUrl: 'http://192.168.0.23:3000/api/'
+      )
     );
   }
 
@@ -25,7 +27,7 @@ class ApiService {
   }
 
   Future<Response> post(String endpoint, {Map<String, dynamic>? queryParameters, Object? data}) async {
-    Response response = await _dio.get(
+    Response response = await _dio.post(
       endpoint,
       queryParameters: queryParameters,
       data: data
@@ -35,7 +37,7 @@ class ApiService {
   }
 
   Future<Response> patch(String endpoint, {Map<String, dynamic>? queryParameters, Object? data}) async {
-    Response response = await _dio.delete(
+    Response response = await _dio.patch(
       endpoint,
       queryParameters: queryParameters,
       data: data
