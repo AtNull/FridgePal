@@ -30,7 +30,7 @@ class FilterNotifier extends Notifier<Filter> {
   void set(value) => state = value;
 }
 
-final filterProvider = NotifierProvider<FilterNotifier, Filter>(FilterNotifier.new);
+final filterProvider = NotifierProvider<FilterNotifier, Filter>(FilterNotifier.new, isAutoDispose: true);
 
 class OrderNotifier extends Notifier<Order> {
   @override
@@ -39,9 +39,9 @@ class OrderNotifier extends Notifier<Order> {
   void set(value) => state = value;
 }
 
-final orderProvider = NotifierProvider<OrderNotifier, Order>(OrderNotifier.new);
+final orderProvider = NotifierProvider<OrderNotifier, Order>(OrderNotifier.new, isAutoDispose: true);
 
-final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(AsyncItemsNotifier.new);
+final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(AsyncItemsNotifier.new, isAutoDispose: true);
 
 final filteredItemsProvider = Provider.autoDispose<List<Item>>((ref) {
   final filter = ref.watch(filterProvider);
