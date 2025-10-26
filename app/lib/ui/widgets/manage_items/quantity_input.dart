@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,7 +13,16 @@ class QuantityInput extends StatelessWidget {
     return Row(
       children: [
         Text('Quantity'),
-        IconButton.filled(onPressed: (){}, icon: Icon(Icons.remove)),
+        IconButton.filled(
+          onPressed: () {
+            var quantity = int.tryParse(controller.text) ?? 1;
+
+            quantity = max(1, quantity - 1); // can't have 0 of something
+
+            controller.text = (quantity).toString();
+          },
+          icon: Icon(Icons.remove)
+        ),
         SizedBox(
           width: 100,
           child: TextFormField(
@@ -23,7 +34,14 @@ class QuantityInput extends StatelessWidget {
             onTap: () => controller.text = ''
           )
         ),
-        IconButton.filled(onPressed: (){}, icon: Icon(Icons.add)),
+        IconButton.filled(
+          onPressed: () {
+            final quantity = int.tryParse(controller.text) ?? 1;
+
+            controller.text = (quantity + 1).toString();
+          },
+          icon: Icon(Icons.add)
+        ),
       ],
     );
   }

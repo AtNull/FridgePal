@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fridge_pal/model/item.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
@@ -15,7 +16,8 @@ class ItemCell extends StatelessWidget {
           CachedNetworkImage(
             width: 48,
             height: 48,
-            imageUrl: item.imageUrl
+            imageUrl: item.imageUrl,
+            errorWidget: (_, __, ___) => Image.memory(kTransparentImage),
           ),
           Expanded(
             child: Column(

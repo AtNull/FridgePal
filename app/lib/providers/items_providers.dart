@@ -11,6 +11,16 @@ class AsyncItemsNotifier extends AsyncNotifier<List<Item>> {
 
     return repo.getItems();
   }
+
+  Future<void> add(String name, DateTime purchaseDate, DateTime expiryDate, int quantity, String imageUrl) async {
+    final repo = ref.read(itemRepositoryProvider);
+
+    final addedItem = await repo.addItem(name, purchaseDate, expiryDate, quantity, imageUrl);
+
+    final currentItems = state.value ?? [];
+
+    state = AsyncValue.data([...currentItems, addedItem]);
+  }
 }
 
 final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(() => AsyncItemsNotifier());
