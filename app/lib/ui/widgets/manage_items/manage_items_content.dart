@@ -82,7 +82,10 @@ class ManageItemsContent extends HookConsumerWidget {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () => saveItem(),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    saveItem();
+                  },
                   child: const Text('Retry'),
                 ),
               ],
