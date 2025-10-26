@@ -58,6 +58,17 @@ app.patch('/api/items/:id', (req, res) => {
   res.json(item);
 });
 
+app.delete('/api/items/:id', (req, res) => {
+  const id = req.params.id;
+
+  const index = mockData.findIndex(i => i.id === id);
+
+  const deletedItem = mockData.splice(index, 1)[0];
+  
+  res.json(deletedItem);
+});
+
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Listening at http://0.0.0.0:${port}`);
 });
