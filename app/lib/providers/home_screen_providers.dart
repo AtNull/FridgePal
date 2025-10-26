@@ -54,8 +54,6 @@ class SearchTextNotifier extends Notifier<String> {
 
 final searchTextProvider = NotifierProvider<SearchTextNotifier, String>(SearchTextNotifier.new, isAutoDispose: true);
 
-final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(AsyncItemsNotifier.new, isAutoDispose: true);
-
 final filteredItemsProvider = Provider.autoDispose<List<Item>>((ref) {
   final filter = ref.watch(filterProvider);
   final order = ref.watch(orderProvider);
