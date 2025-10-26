@@ -15,7 +15,6 @@ class HomeContentWidget extends HookConsumerWidget {
     final tabController = useTabController(initialLength: Filter.values.length);
     final searchTextController = useTextEditingController();
 
-    useListenable(tabController);
     useEffect(() {
       var debouncer = Debouncer(delay: Duration(milliseconds: 200));
 
