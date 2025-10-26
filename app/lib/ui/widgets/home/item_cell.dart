@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fridge_pal/model/item.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
@@ -12,12 +12,10 @@ class ItemCell extends StatelessWidget {
     return GestureDetector(
       child: Row(
         children: [
-          FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: item.imageUrl,
+          CachedNetworkImage(
             width: 48,
             height: 48,
-            imageErrorBuilder: (context, error, stackTrace) => Image.memory(width: 48, height: 48, kTransparentImage),
+            imageUrl: item.imageUrl
           ),
           Expanded(
             child: Column(
