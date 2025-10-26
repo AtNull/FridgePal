@@ -121,6 +121,7 @@ class ManageItemsContent extends HookConsumerWidget {
                       ),
                       TextFormField(
                         controller: purchaseDateTextController,
+                        readOnly: true,
                         decoration: const InputDecoration(
                           hintText: 'Purchase date'
                         ),
@@ -135,6 +136,7 @@ class ManageItemsContent extends HookConsumerWidget {
                       ),
                       TextFormField(
                         controller: expiryTextController,
+                        readOnly: true,
                         decoration: const InputDecoration(
                           hintText: 'Expiry date'
                         ),
