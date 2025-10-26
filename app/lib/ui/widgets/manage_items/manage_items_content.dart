@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fridge_pal/model/item.dart';
 import 'package:fridge_pal/providers/items_providers.dart';
+import 'package:fridge_pal/ui/widgets/home/common/dialog.dart';
 import 'package:fridge_pal/ui/widgets/manage_items/quantity_input.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -72,70 +73,65 @@ class ManageItemsContent extends HookConsumerWidget {
         if (context.mounted) {
           saving.value = false;
 
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              content: const Text('Oops! Something went wrong while connecting. Please try again.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    saveItem();
-                  },
-                  child: const Text('Retry'),
-                ),
-              ],
-            ), 
+          showAlert(
+            context,
+            'Oops! Something went wrong while connecting. Please try again.',
+            'Retry',
+            () => Navigator.pop(context),
+            () {
+              Navigator.pop(context);
+              saveItem();
+            }
           );
         }
       }
     }
 
-    Future<void> deleteItem() async {
+    Future<void> deleteItem () async {
+      try {
+        saving.value = true;
+
+        await ref.read(itemsNotifierProvider.notifier).delete(
+          itemToEdit!.id
+        );
+
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
+      } catch (error) {
+        if (context.mounted) {
+          saving.value = true;
+
+          showAlert(
+            context,
+            'Oops! Something went wrong while connecting. Please try again.',
+            'Retry',
+            () => Navigator.pop(context),
+            () {
+              Navigator.pop(context);
+              deleteItem();
+            }
+          );
+        }
+      }
+    }
+
+    final confirmDeletion = useCallback(() {
       final id = itemToEdit?.id;
 
       if (id != null) {
-        try {
-          saving.value = true;
-
-          await ref.read(itemsNotifierProvider.notifier).delete(
-            itemToEdit!.id
-          );
-
-          if (context.mounted) {
+        showAlert(
+          context,
+          'Are you sure? This cannot be undone.',
+          'Delete',
+          () => Navigator.pop(context),
+          () {
             Navigator.pop(context);
+            deleteItem();
           }
-        } catch (error) {
-          if (context.mounted) {
-            saving.value = true;
-
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                content: const Text('Oops! Something went wrong while connecting. Please try again.'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      deleteItem();
-                    },
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ), 
-            );
-          }
-        }
+        );
       }
-    }
+    });
 
     Future<void> selectDate(TextEditingController textController, ValueNotifier<DateTime?> dateNotifier) async {
       final DateTime? date = await showDatePicker(
@@ -156,14 +152,14 @@ class ManageItemsContent extends HookConsumerWidget {
           Row(
             children: [
               IconButton(
-                onPressed: (){},
+                onPressed: () => Navigator.pop(context),
                 icon: Icon(Icons.arrow_back)
               ),
               Text(itemToEdit == null ? 'Add item' : 'Edit item'),
               Spacer(),
               if (itemToEdit != null)
                 IconButton(
-                  onPressed: () => deleteItem(),
+                  onPressed: () => confirmDeletion(),
                   icon: Icon(Icons.delete)
                 )
             ]
