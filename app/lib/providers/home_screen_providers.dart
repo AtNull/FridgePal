@@ -45,11 +45,21 @@ class OrderNotifier extends Notifier<Order> {
 
 final orderProvider = NotifierProvider<OrderNotifier, Order>(OrderNotifier.new, isAutoDispose: true);
 
+class SearchTextNotifier extends Notifier<String> {
+  @override
+  String build() => '';
+
+  void set(value) => state = value;
+}
+
+final searchTextProvider = NotifierProvider<SearchTextNotifier, String>(SearchTextNotifier.new, isAutoDispose: true);
+
 final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(AsyncItemsNotifier.new, isAutoDispose: true);
 
 final filteredItemsProvider = Provider.autoDispose<List<Item>>((ref) {
   final filter = ref.watch(filterProvider);
   final order = ref.watch(orderProvider);
+  final searchText = ref.watch(searchTextProvider);
   final itemsAsync = ref.watch(itemsNotifierProvider);
 
   var items = itemsAsync.value ?? [];
@@ -59,6 +69,12 @@ final filteredItemsProvider = Provider.autoDispose<List<Item>>((ref) {
     Filter.expired => items.where((item) => _isItemExpiring(item)).toList(),
     Filter.expiring => items.where((item) => _isItemExpired(item)).toList(),
   };
+
+  final normalizedSearchText = searchText.trim().toLowerCase();
+
+  items = items.where(
+    (item) => item.name.toLowerCase().contains(normalizedSearchText)
+  ).toList();
 
   switch(order) {
     case Order.dateOfPurchaseAsc: items.sort((a,b) => a.purchaseDate.compareTo(b.purchaseDate));
