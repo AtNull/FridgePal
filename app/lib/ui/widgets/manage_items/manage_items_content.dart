@@ -160,6 +160,12 @@ class ManageItemsContent extends HookConsumerWidget {
                 icon: Icon(Icons.arrow_back)
               ),
               Text(itemToEdit == null ? 'Add item' : 'Edit item'),
+              Spacer(),
+              if (itemToEdit != null)
+                IconButton(
+                  onPressed: () => deleteItem(),
+                  icon: Icon(Icons.delete)
+                )
             ]
           ),
           Expanded(
