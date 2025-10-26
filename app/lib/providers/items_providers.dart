@@ -11,7 +11,6 @@ class AsyncItemsNotifier extends AsyncNotifier<List<Item>> {
 
     return repo.getItems();
   }
-  
 }
 
 final itemsNotifierProvider = AsyncNotifierProvider<AsyncItemsNotifier, List<Item>>(() => AsyncItemsNotifier());

@@ -15,7 +15,7 @@ class HomeScreen extends ConsumerWidget {
         data: (items) => HomeContentWidget(),
         error: (error, stackTrace) => Center(child: Text('$error')),
         loading: () => Center(child: CircularProgressIndicator())
-      ),
+      )
     );
   }
 }
