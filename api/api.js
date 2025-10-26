@@ -24,6 +24,23 @@ app.get('/api/items', (_, res) => {
   res.json(mockData);
 });
 
+app.post('/api/item', (req, res) => {
+  const nextId = mockData.length > 0 ? parseInt(mockData[mockData.length - 1].id) + 1 : 1;
+
+  const body = req.body;
+
+  var newItem = {
+    id: nextId.toString(),
+    name: body.name,
+    imageUrl: body.imageUrl,
+    purchaseDate: body.purchaseDate,
+    expiryDate: body.expiryDate,
+    quantity: body.quantity
+  };
+
+  res.json(newItem);
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Listening at http://0.0.0.0:${port}`);
 });
