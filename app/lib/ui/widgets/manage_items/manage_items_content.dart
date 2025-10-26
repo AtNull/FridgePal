@@ -27,10 +27,12 @@ class ManageItemsContent extends HookConsumerWidget {
     final saving = useState(false);
 
     Future<void> saveItem() async {
+      if (formKey.currentState == null || formKey.currentState?.validate() == false) {
+        return;
+      }
+
       try {
         saving.value = true;
-
-        // TODO: Data validation
 
         var quantity = int.tryParse(quantityTextController.text) ?? 1;
 
@@ -41,7 +43,7 @@ class ManageItemsContent extends HookConsumerWidget {
           purchaseDate.value ?? DateTime.now(),
           expiryDate.value ?? DateTime.now(),
           quantity,
-          '' // TODO: fetch itemTypes from backend for imageUrl
+          ''
         );
 
         if (context.mounted) {
@@ -109,20 +111,41 @@ class ManageItemsContent extends HookConsumerWidget {
                         decoration: const InputDecoration(
                           hintText: 'Name'
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Name is required';
+                          }
+
+                          return null;
+                        },
                       ),
                       TextFormField(
                         controller: purchaseDateTextController,
                         decoration: const InputDecoration(
                           hintText: 'Purchase date'
                         ),
-                        onTap: () => selectDate(purchaseDateTextController, purchaseDate)
+                        onTap: () => selectDate(purchaseDateTextController, purchaseDate),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Purchase date is required';
+                          }
+
+                          return null;
+                        },
                       ),
                       TextFormField(
                         controller: expiryTextController,
                         decoration: const InputDecoration(
                           hintText: 'Expiry date'
                         ),
-                        onTap: () => selectDate(expiryTextController, expiryDate)
+                        onTap: () => selectDate(expiryTextController, expiryDate),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Expiry date is required';
+                          }
+
+                          return null;
+                        },
                       ),
                       QuantityInput(controller: quantityTextController),
                     ]
