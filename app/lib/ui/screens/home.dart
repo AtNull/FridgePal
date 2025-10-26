@@ -19,12 +19,16 @@ class HomeScreen extends ConsumerWidget {
         loading: () => Center(child: CircularProgressIndicator())
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ManageItemScreen())
-        )
-      ),
+      floatingActionButton: itemsProvider.maybeWhen(
+        data: (_) => FloatingActionButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ManageItemScreen()),
+          ),
+          child: Icon(Icons.add),
+        ),
+        orElse: () => null,
+      )
     );
   }
 }
