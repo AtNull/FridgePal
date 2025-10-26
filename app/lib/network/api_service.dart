@@ -42,6 +42,7 @@ class ApiService {
       queryParameters: queryParameters,
       data: data
     );
+    
     return response;
   }
 

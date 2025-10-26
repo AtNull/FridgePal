@@ -5,12 +5,14 @@ import 'package:transparent_image/transparent_image.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
+  final Function(Item) onSelectItem;
 
-  const ItemCell({super.key, required this.item});
+  const ItemCell({super.key, required this.item, required this.onSelectItem});
   
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () => onSelectItem(item),
       child: Row(
         children: [
           CachedNetworkImage(

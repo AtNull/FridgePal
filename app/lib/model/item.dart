@@ -29,4 +29,21 @@ class Item {
       'imageUrl': imageUrl
     };
   }
+
+  Item copyWith({
+    String? name,
+    DateTime? purchaseDate,
+    DateTime? expiryDate,
+    int? quantity,
+    String? imageUrl,
+  }) {
+    return Item(
+      id: id,
+      name: name ?? this.name,
+      purchaseDate: purchaseDate ?? this.purchaseDate,
+      expiryDate: expiryDate ?? this.expiryDate,
+      quantity: quantity ?? this.quantity,
+      imageUrl: imageUrl ?? this.imageUrl,
+    );
+  }
 }

@@ -12,17 +12,25 @@ class ManageItemsContent extends HookConsumerWidget {
 
   const ManageItemsContent({super.key, this.itemToEdit});
 
+  String formatDate(DateTime date) {
+    return '${date.day}. ${date.month}. ${date.year}';
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
-    final purchaseDate = useState<DateTime?>(null);
-    final expiryDate = useState<DateTime?>(null);
+    final purchaseDate = useState<DateTime?>(itemToEdit?.purchaseDate);
+    final expiryDate = useState<DateTime?>(itemToEdit?.expiryDate);
 
-    final nameTextController = useTextEditingController();
-    final purchaseDateTextController = useTextEditingController();
-    final expiryTextController = useTextEditingController();
-    final quantityTextController = useTextEditingController(text: '1');
+    final nameTextController = useTextEditingController(text: itemToEdit?.name);
+    final purchaseDateTextController = useTextEditingController(
+      text: itemToEdit != null ? formatDate(itemToEdit!.purchaseDate) : null
+    );
+    final expiryTextController = useTextEditingController(
+      text: itemToEdit != null ? formatDate(itemToEdit!.expiryDate) : null
+    );
+    final quantityTextController = useTextEditingController(text: itemToEdit?.quantity.toString() ?? '1');
 
     final saving = useState(false);
 
@@ -38,13 +46,24 @@ class ManageItemsContent extends HookConsumerWidget {
 
         quantity = max(1, quantity);
 
-        await ref.read(itemsNotifierProvider.notifier).add(
-          nameTextController.text,
-          purchaseDate.value ?? DateTime.now(),
-          expiryDate.value ?? DateTime.now(),
-          quantity,
-          ''
-        );
+        if (itemToEdit == null) {
+          await ref.read(itemsNotifierProvider.notifier).add(
+            nameTextController.text,
+            purchaseDate.value ?? DateTime.now(),
+            expiryDate.value ?? DateTime.now(),
+            quantity,
+            ''
+          );
+        } else {
+          await ref.read(itemsNotifierProvider.notifier).edit(
+            itemToEdit!.id,
+            nameTextController.text,
+            purchaseDate.value ?? DateTime.now(),
+            expiryDate.value ?? DateTime.now(),
+            quantity,
+            itemToEdit?.imageUrl ?? ''
+          );
+        }
 
         if (context.mounted) {
           Navigator.pop(context);
@@ -56,7 +75,7 @@ class ManageItemsContent extends HookConsumerWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: Text('Oops! Something went wrong while connecting. Please try again.'),
+              content: const Text('Oops! Something went wrong while connecting. Please try again.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
@@ -82,7 +101,7 @@ class ManageItemsContent extends HookConsumerWidget {
 
       if (date != null) {
         dateNotifier.value = date;
-        textController.text = '${date.day}. ${date.month}. ${date.year}';
+        textController.text = formatDate(date);
       }
     }
 

@@ -25,4 +25,21 @@ class ItemRespository {
 
     return Item.fromJson(response.data);
   }
+
+  Future<Item> editItem(String id, String name, DateTime purchaseDate, DateTime expiryDate, int quantity, String imageUrl) async {
+    final body = {
+      'name': name,
+      'purchaseDate': purchaseDate.toUtc().toIso8601String(),
+      'expiryDate': expiryDate.toUtc().toIso8601String(),
+      'quantity': quantity,
+      'imageUrl': imageUrl
+    };
+    
+    final response = await apiService.patch(
+      'items/$id',
+      data: body
+    );
+
+    return Item.fromJson(response.data);
+  }
 }
