@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 const mockData = [
   { id: '1', name: 'Lime', imageUrl: 'https://provisioning.scrubisland.com/cdn/shop/products/Limes_600x.png?v=1571841822', purchaseDate: '2025-09-22T08:30:00Z', expiryDate: '2025-10-03T08:30:00Z', quantity: 5 },
   { id: '2', name: 'Egg', imageUrl: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/eggs-in-carton-cabral-stock.jpg', purchaseDate: '2025-09-24T09:15:00Z', expiryDate: '2025-10-29T09:15:00Z', quantity: 12 },
