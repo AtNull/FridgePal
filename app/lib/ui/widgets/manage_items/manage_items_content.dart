@@ -159,7 +159,7 @@ class ManageItemsContent extends HookConsumerWidget {
                 onPressed: (){},
                 icon: Icon(Icons.arrow_back)
               ),
-              Text('Add item')
+              Text(itemToEdit == null ? 'Add item' : 'Edit item'),
             ]
           ),
           Expanded(
