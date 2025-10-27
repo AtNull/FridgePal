@@ -15,10 +15,10 @@
 * Edit baseUrl in api_services.dart as needed
 * Start the app using flutter run --release (or --profile)
 
-## Screenshots
-<img src="https://github.com/user-attachments/assets/23dfa6b3-f8d6-4c9f-bd80-e2f5a09df810" width="20%">
-<img src="https://github.com/user-attachments/assets/5f981361-780f-486f-b1cf-bc0b250f4162" width="20%">
-<img src="https://github.com/user-attachments/assets/5408f480-91cb-4369-a08d-af088ed70365" width="20%">
+## Screenshots!
+<img src="https://github.com/user-attachments/assets/93fcfb52-e354-4aa7-a5ba-b1ab007253c4" width="30%">
+<img src="https://github.com/user-attachments/assets/5f981361-780f-486f-b1cf-bc0b250f4162" width="30%">
+<img src="https://github.com/user-attachments/assets/5408f480-91cb-4369-a08d-af088ed70365" width="30%">
 
 ## Future improvements
 Due to time constraints some planned features weren't implemented
