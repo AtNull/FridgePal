@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fridge_pal/util/theme_constants.dart';
 
 class QuantityInput extends StatelessWidget {
   final TextEditingController controller;
@@ -11,8 +12,9 @@ class QuantityInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: spacing,
       children: [
-        Text('Quantity'),
+        Text(style: TextStyle(fontSize: 16), 'Quantity'),
         IconButton.filled(
           onPressed: () {
             var quantity = int.tryParse(controller.text) ?? 1;
@@ -24,8 +26,10 @@ class QuantityInput extends StatelessWidget {
           icon: Icon(Icons.remove)
         ),
         SizedBox(
-          width: 100,
+          width: 70,
           child: TextFormField(
+            decoration: InputDecoration(contentPadding: EdgeInsets.all(0)),
+            textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly,

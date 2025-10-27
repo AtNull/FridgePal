@@ -6,6 +6,7 @@ import 'package:fridge_pal/model/item.dart';
 import 'package:fridge_pal/providers/items_providers.dart';
 import 'package:fridge_pal/ui/widgets/home/common/dialog.dart';
 import 'package:fridge_pal/ui/widgets/manage_items/quantity_input.dart';
+import 'package:fridge_pal/util/theme_constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ManageItemsContent extends HookConsumerWidget {
@@ -155,12 +156,21 @@ class ManageItemsContent extends HookConsumerWidget {
                 onPressed: () => Navigator.pop(context),
                 icon: Icon(Icons.arrow_back)
               ),
-              Text(itemToEdit == null ? 'Add item' : 'Edit item'),
+              Text(
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600
+                ),
+                itemToEdit == null ? 'Add item' : 'Edit item'
+              ),
               Spacer(),
               if (itemToEdit != null)
                 IconButton(
                   onPressed: () => confirmDeletion(),
-                  icon: Icon(Icons.delete)
+                  icon: Icon(
+                    color: Theme.of(context).colorScheme.error,
+                    Icons.delete
+                  )
                 )
             ]
           ),
@@ -170,53 +180,63 @@ class ManageItemsContent extends HookConsumerWidget {
                 absorbing: saving.value,
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: nameTextController,
-                        decoration: const InputDecoration(
-                          hintText: 'Name'
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Name is required';
-                          }
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.symmetric(horizontal: spacing),
+                    child: Column(
+                      spacing: spacing,
+                      children: [
+                        SizedBox(
+                          height: mediumWidgetHeight,
+                          child: TextFormField(
+                            controller: nameTextController,
+                            decoration: const InputDecoration(
+                              hintText: 'Name'
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Name is required';
+                              }
 
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: purchaseDateTextController,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Purchase date'
+                              return null;
+                            },
+                          )
                         ),
-                        onTap: () => selectDate(purchaseDateTextController, purchaseDate),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Purchase date is required';
-                          }
+                        SizedBox(
+                          height: mediumWidgetHeight,
+                          child: TextFormField(
+                            controller: purchaseDateTextController,
+                            readOnly: true,
+                            decoration: const InputDecoration(
+                              hintText: 'Purchase date'
+                            ),
+                            onTap: () => selectDate(purchaseDateTextController, purchaseDate),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Purchase date is required';
+                              }
 
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: expiryTextController,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Expiry date'
+                              return null;
+                            },
+                          )
                         ),
-                        onTap: () => selectDate(expiryTextController, expiryDate),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Expiry date is required';
-                          }
+                        TextFormField(
+                          controller: expiryTextController,
+                          readOnly: true,
+                          decoration: const InputDecoration(
+                            hintText: 'Expiry date'
+                          ),
+                          onTap: () => selectDate(expiryTextController, expiryDate),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Expiry date is required';
+                            }
 
-                          return null;
-                        },
-                      ),
-                      QuantityInput(controller: quantityTextController),
-                    ]
+                            return null;
+                          },
+                        ),
+                        QuantityInput(controller: quantityTextController),
+                      ]
+                    )
                   )
                 )
               )
@@ -224,9 +244,15 @@ class ManageItemsContent extends HookConsumerWidget {
           ),
           SizedBox(
             width: double.infinity,
-            child: FilledButton(
-              onPressed: () => saveItem(),
-              child: Text(saving.value ? 'Saving' : 'Save')
+            child: Padding(
+              padding: EdgeInsets.all(spacing),
+              child: FilledButton(
+                onPressed: () => saveItem(),
+                child: Text(
+                  style: TextStyle(fontSize: 16),
+                  saving.value ? 'Saving' : 'Save'
+                )
+              )
             )
           )
         ]
