@@ -4,6 +4,7 @@ void showAlert(BuildContext context, String text, String actionText, Function ca
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
+      actionsPadding: EdgeInsets.zero,
       content: Text(text),
       actions: [
         TextButton(
