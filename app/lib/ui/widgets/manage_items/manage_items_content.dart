@@ -154,16 +154,16 @@ class ManageItemsContent extends HookConsumerWidget {
             children: [
               IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back)
+                icon: const Icon(Icons.arrow_back)
               ),
               Text(
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600
                 ),
                 itemToEdit == null ? 'Add item' : 'Edit item'
               ),
-              Spacer(),
+              const Spacer(),
               if (itemToEdit != null)
                 IconButton(
                   onPressed: () => confirmDeletion(),
@@ -181,7 +181,7 @@ class ManageItemsContent extends HookConsumerWidget {
                 child: Form(
                   key: formKey,
                   child: Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: spacing),
+                    padding: const EdgeInsetsGeometry.symmetric(horizontal: spacing),
                     child: Column(
                       spacing: spacing,
                       children: [
@@ -245,11 +245,11 @@ class ManageItemsContent extends HookConsumerWidget {
           SizedBox(
             width: double.infinity,
             child: Padding(
-              padding: EdgeInsets.all(spacing),
+              padding: const EdgeInsets.all(spacing),
               child: FilledButton(
                 onPressed: () => saveItem(),
                 child: Text(
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                   saving.value ? 'Saving' : 'Save'
                 )
               )

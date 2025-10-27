@@ -91,7 +91,7 @@ final filteredItemsProvider = Provider.autoDispose<List<Item>>((ref) {
 bool _isItemExpiring(Item item) {
   final now = DateTime.now();
   final beginningOfToday = DateTime(now.year, now.month, now.day);
-  final nextWeek = beginningOfToday.add(Duration(days: 7));
+  final nextWeek = beginningOfToday.add(const Duration(days: 7));
 
   return item.expiryDate.isAfter(now) && item.expiryDate.isBefore(nextWeek);
 }

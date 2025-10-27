@@ -65,13 +65,13 @@ class ItemCell extends StatelessWidget {
     return Dismissible(
       key: ValueKey('dismissable_${item.id}'),
       background: Container(
-        padding: EdgeInsets.symmetric(horizontal: spacing),
+        padding: const EdgeInsets.symmetric(horizontal: spacing),
         color: Theme.of(context).colorScheme.error,
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(Icons.delete, color: Colors.white),
-            const Icon(Icons.delete, color: Colors.white)
+            Icon(Icons.delete, color: Colors.white),
+            Icon(Icons.delete, color: Colors.white)
           ],
         )
       ),
@@ -100,11 +100,11 @@ class ItemCell extends StatelessWidget {
                     spacing: 4,
                     children: [
                       Text(
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                         overflow: TextOverflow.ellipsis,
                         item.name
                       ),
-                      Text('•'),
+                      const Text('•'),
                       Expanded(
                         child: Text('${item.quantity} ${item.quantity > 1 ? 'pcs' : 'pc'}')
                       )
@@ -112,19 +112,19 @@ class ItemCell extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         size: 12,
                         Icons.calendar_month
                       ),
-                      SizedBox(width: 2),
+                      const SizedBox(width: 2),
                       Text(overflow: TextOverflow.ellipsis, purchaseDateText),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Icon(
                         size: 12,
                         color: expiry.color,
                         Icons.alarm
                       ),
-                      SizedBox(width: 2),
+                      const SizedBox(width: 2),
                       Expanded(
                         child: Text(
                           style: TextStyle(

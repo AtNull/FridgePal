@@ -12,11 +12,11 @@ class OrderByBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: spacing),
+      child: Padding(padding: const EdgeInsetsGeometry.symmetric(horizontal: spacing),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: cornerRadius),
+            const SizedBox(height: cornerRadius),
             for (final order in Order.values)
               TextButton(
                 style: TextButton.styleFrom(

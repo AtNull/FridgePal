@@ -6,13 +6,13 @@ import 'package:fridge_pal/util/theme_constants.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light
     )
   );
 
-  runApp(ProviderScope(child: const MainApp()));
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.light(
+        colorScheme: const ColorScheme.light(
           surface: Color(0xFFF8FFF5),
           primary: Color(0xFFCAEAB4),
           onPrimary: Colors.black,
@@ -31,7 +31,7 @@ class MainApp extends StatelessWidget {
         fontFamily: 'Lexend',
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: Color(0xFFCAEAB4),
+          fillColor: const Color(0xFFCAEAB4),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(cornerRadius)
           ),
@@ -43,13 +43,13 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(cornerRadius),
             borderSide: const BorderSide(color: Colors.black, width: 1),
           ),
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: cornerRadius,
           ),
         ),
         iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
-            fixedSize: Size(mediumWidgetHeight, mediumWidgetHeight),
+            fixedSize: const Size(mediumWidgetHeight, mediumWidgetHeight),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(cornerRadius),
             ),
@@ -90,7 +90,7 @@ class MainApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

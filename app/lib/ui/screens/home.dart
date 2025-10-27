@@ -14,18 +14,18 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: itemsProvider.when(
-        data: (items) => HomeContentWidget(),
+        data: (items) => const HomeContentWidget(),
         error: (error, stackTrace) => Center(child: Text('$error')),
-        loading: () => Center(child: CircularProgressIndicator())
+        loading: () => const Center(child: CircularProgressIndicator())
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: itemsProvider.maybeWhen(
         data: (_) => FloatingActionButton(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ManageItemScreen()),
+            MaterialPageRoute(builder: (context) => const ManageItemScreen()),
           ),
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         orElse: () => null,
       )

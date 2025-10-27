@@ -14,7 +14,7 @@ class QuantityInput extends StatelessWidget {
     return Row(
       spacing: spacing,
       children: [
-        Text(style: TextStyle(fontSize: 16), 'Quantity'),
+        const Text(style: TextStyle(fontSize: 16), 'Quantity'),
         IconButton.filled(
           onPressed: () {
             var quantity = int.tryParse(controller.text) ?? 1;
@@ -23,12 +23,12 @@ class QuantityInput extends StatelessWidget {
 
             controller.text = (quantity).toString();
           },
-          icon: Icon(Icons.remove)
+          icon: const Icon(Icons.remove)
         ),
         SizedBox(
           width: 70,
           child: TextFormField(
-            decoration: InputDecoration(contentPadding: EdgeInsets.all(0)),
+            decoration: const InputDecoration(contentPadding: EdgeInsets.all(0)),
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -44,7 +44,7 @@ class QuantityInput extends StatelessWidget {
 
             controller.text = (quantity + 1).toString();
           },
-          icon: Icon(Icons.add)
+          icon: const Icon(Icons.add)
         ),
       ],
     );

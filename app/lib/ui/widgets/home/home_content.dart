@@ -30,7 +30,7 @@ class HomeContentWidget extends HookConsumerWidget {
     );
 
     useEffect(() {
-      var debouncer = Debouncer(delay: Duration(milliseconds: 200));
+      var debouncer = Debouncer(delay: const Duration(milliseconds: 200));
 
       void tabControllerListener() {
         ref.read(filterProvider.notifier).set(Filter.values[tabController.index]);
@@ -55,12 +55,12 @@ class HomeContentWidget extends HookConsumerWidget {
 
     return SafeArea(
       bottom: false,
-      child: Padding(padding: EdgeInsetsGeometry.only(top: spacing),
+      child: Padding(padding: const EdgeInsetsGeometry.only(top: spacing),
         child: Column(
           spacing: spacing,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: spacing),
+              padding: const EdgeInsets.symmetric(horizontal: spacing),
               child: Row(
                 spacing: spacing,
                 children: [
@@ -69,7 +69,7 @@ class HomeContentWidget extends HookConsumerWidget {
                     height: mediumWidgetHeight,
                       child: TextField(
                         controller: searchTextController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Search',
                           prefixIcon: Icon(Icons.search)
                         ),
@@ -84,13 +84,13 @@ class HomeContentWidget extends HookConsumerWidget {
                         onSelected: (order) => ref.read(orderProvider.notifier).set(order),
                       )
                     ),
-                    icon: Icon(Icons.sort)
+                    icon: const Icon(Icons.sort)
                   )
                 ],
               )
             ),
             TabBar(
-              padding: EdgeInsets.symmetric(horizontal: spacing),
+              padding: const EdgeInsets.symmetric(horizontal: spacing),
               tabAlignment: TabAlignment.start,
               isScrollable: true,
               controller: tabController,
