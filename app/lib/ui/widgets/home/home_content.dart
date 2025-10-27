@@ -6,6 +6,7 @@ import 'package:fridge_pal/ui/screens/manage_item.dart';
 import 'package:fridge_pal/ui/widgets/home/item_cell.dart';
 import 'package:fridge_pal/ui/widgets/home/order_by_bottom_sheet.dart';
 import 'package:fridge_pal/util/debouncer.dart';
+import 'package:fridge_pal/util/theme_constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeContentWidget extends HookConsumerWidget {
@@ -54,42 +55,61 @@ class HomeContentWidget extends HookConsumerWidget {
 
     return SafeArea(
       bottom: false,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(controller: searchTextController)
-              ),
-              IconButton.filled(
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  builder: (context) => OrderByBottomSheet(
-                    selectedOrder: ref.read(orderProvider),
-                    onSelected: (order) => ref.read(orderProvider.notifier).set(order),
+      child: Padding(padding: EdgeInsetsGeometry.only(top: spacing),
+        child: Column(
+          spacing: spacing,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: spacing),
+              child: Row(
+                spacing: spacing,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                    height: mediumWidgetHeight,
+                      child: TextField(
+                        controller: searchTextController,
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          prefixIcon: Icon(Icons.search)
+                        ),
+                      )
+                    )
+                  ),
+                  IconButton.filled(
+                    onPressed: () => showModalBottomSheet(
+                      context: context,
+                      builder: (context) => OrderByBottomSheet(
+                        selectedOrder: ref.read(orderProvider),
+                        onSelected: (order) => ref.read(orderProvider.notifier).set(order),
+                      )
+                    ),
+                    icon: Icon(Icons.sort)
                   )
-                ),
-                icon: Icon(Icons.sort)
+                ],
               )
-            ],
-          ),
-          TabBar(
-            controller: tabController,
-            tabs: [for (final tab in Filter.values) Tab(text: tab.label)],
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemExtent: 48,
-              itemCount: items.length,
-              itemBuilder: (context, index) => ItemCell(
-                key: ValueKey(items[index].id),
-                item: items[index],
-                onSelectItem: (item) => editItem(item),
-                onDismissItem: (item) => deleteItem(item),
+            ),
+            TabBar(
+              padding: EdgeInsets.symmetric(horizontal: spacing),
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              controller: tabController,
+              tabs: [for (final tab in Filter.values) Tab(text: tab.label)],
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemExtent: mediumWidgetHeight + spacing,
+                itemCount: items.length,
+                itemBuilder: (context, index) => ItemCell(
+                  key: ValueKey(items[index].id),
+                  item: items[index],
+                  onSelectItem: (item) => editItem(item),
+                  onDismissItem: (item) => deleteItem(item),
+                )
               )
             )
-          )
-        ]
+          ]
+        )
       )
     );
   }
