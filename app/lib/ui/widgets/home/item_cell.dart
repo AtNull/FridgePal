@@ -52,7 +52,7 @@ class ItemCell extends StatelessWidget {
         return 'Expires in $difference days';
       }
     } else {
-      return 'Expires ${date.day}. ${date.month}. ${date.year}';
+      return 'Expires ${date.day}. ${date.month}. ${date.year}.';
     }
   }
 
@@ -117,8 +117,14 @@ class ItemCell extends StatelessWidget {
                         Icons.calendar_month
                       ),
                       const SizedBox(width: 2),
-                      Text(overflow: TextOverflow.ellipsis, purchaseDateText),
-                      const SizedBox(width: 4),
+                      Text(
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        purchaseDateText
+                      ),
+                      const SizedBox(width: 8),
                       Icon(
                         size: 12,
                         color: expiry.color,
@@ -129,7 +135,7 @@ class ItemCell extends StatelessWidget {
                         child: Text(
                           style: TextStyle(
                             color: expiry.color,
-                            fontWeight: FontWeight.w600
+                            fontWeight: FontWeight.w500
                           ),
                           overflow: TextOverflow.ellipsis,
                           expiryDateText
