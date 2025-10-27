@@ -98,6 +98,7 @@ class HomeContentWidget extends HookConsumerWidget {
             ),
             Expanded(
               child: ListView.builder(
+                padding: EdgeInsets.only(bottom: 60),
                 itemExtent: mediumWidgetHeight + spacing,
                 itemCount: items.length,
                 itemBuilder: (context, index) => ItemCell(
